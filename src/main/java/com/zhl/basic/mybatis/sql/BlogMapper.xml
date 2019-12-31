@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhl.basic.mybatis.sql">
+    <cache/>
+    <resultMap id="hashmap" type="hashmap">
+        <id property="id" column="id" jdbcType="INTEGER" javaType="int"/>
+        <result column="title" property="title"/>
+        <result column="content" property="content"/>
+    </resultMap>
+    <parameterMap id="pmap" type="hashmap">
+        <parameter property="id" javaType="int" jdbcType="INTEGER"></parameter>
+    </parameterMap>
+    <select id="selectBlog"  resultType="com.zhl.basic.mybatis.sql.Blog">
+        select * from blog where id = #{id}
+    </select>
+    <select id="selectBlog1" parameterType="int" resultMap="hashmap">
+        select * from blog where id = #{id}
+    </select>
+    <select id="selectBlog2" parameterMap="pmap" resultType="com.zhl.basic.mybatis.sql.Blog">
+        select * from blog where id = #{pmap.id}
+    </select>
+    <insert id="insertBlogs" useGeneratedKeys="true" keyProperty="id" keyColumn="id" parameterType="java.util.List">
+        insert into blog (title,content) values
+        <foreach collection="list" item="blog" index="index" separator=",">
+            (#{blog.title},#{blog.content})
+        </foreach>
+    </insert>
+</mapper>

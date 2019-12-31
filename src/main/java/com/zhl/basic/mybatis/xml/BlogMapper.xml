@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhl.basic.mybatis.sql">
+
+    <cache type="com.zhl.basic.mybatis.xml.MyCache">
+        <property name="logger" value="SL4J"/>
+    </cache>
+    <select id="selectBlog" resultType="com.zhl.basic.mybatis.sql.Blog" useCache="true">
+    select * from Blog where id = #{id}
+  </select>
+    <update id="updateBlog" >
+    update Blog set title=#{title}
+  </update>
+</mapper>
